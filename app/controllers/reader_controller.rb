@@ -63,7 +63,7 @@ class ReadersController < ApplicationController
     if !logged_in?
       erb :'readers/login'
     else
-      redirect '/tweets'
+      redirect :'/books/index'
     end
   end
 
@@ -73,7 +73,7 @@ class ReadersController < ApplicationController
       session[:reader_id] = reader.id
       redirect "/tweets"
     else
-      redirect to '/signup'
+      redirect to '/create_reader'
     end
   end
 
