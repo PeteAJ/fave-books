@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20160921184504) do
     t.string   "title"
     t.integer  "year"
     t.string   "notes"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -25,8 +26,10 @@ ActiveRecord::Schema.define(version: 20160921184504) do
   create_table "readers", force: :cascade do |t|
     t.string   "name"
     t.string   "favorite_genre"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
 end

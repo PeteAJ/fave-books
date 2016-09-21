@@ -5,6 +5,7 @@ class CreateBooks < ActiveRecord::Migration
               t.string :title
               t.integer :year
               t.string :notes
+              t.integer :user_id
       
       t.timestamps null: false
     end

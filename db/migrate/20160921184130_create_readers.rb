@@ -3,6 +3,8 @@ class CreateReaders < ActiveRecord::Migration
     create_table :readers do |t|
               t.string :name
               t.string :favorite_genre
+              t.string :email
+              t.string :password_digest
       
       t.timestamps null: false
     end
