@@ -11,34 +11,74 @@ class BooksController < ApplicationController
 
   #Index Controller
   get "/books" do
-    erb :"/books/index.html"
+        if logged_in?
+      erb :'books/new'
+    else
+      redirect to '/login'
+    end
   end
 
   # New Item Controllers
   get "/books/new" do
-    erb :"/books/new.html"
+    erb :'/books/new'
   end
 
   post "/books" do
-    redirect "/books"
+
+     if params[:author] == ""
+      redirect to "/books/new"
+    else
+      current_user.tweets.create(author: params[:author])
+      redirect to "/books/#{@book.id}"
+    end
+    #redirect "/books"
   end
 
   # Show Item Controller
   get "/books/:id" do
-    erb :"/books/show.html"
+    if logged_in?
+      @book = Book.find_by_id(params[:id])
+    erb :'/books/show'
+  else
+    redirect to '/login'
   end
 
   # Edit Item Controller
   get "/books/:id/edit" do
-    erb :"/books/edit.html"
+    if logged_in?
+      @book = Book.find_by_id(params[:id])
+      if @book.user_id == current_user.id
+    erb :'/books/edit'
+  else
+    redirect to '/books'
+  else 
+    redirect to '/login'
+  end
   end
 
   patch "/books" do
-    redirect "/books/:id"
+    if params[:author] == ""
+    redirect to "/books/#{params[:id]}/edit"
+  else
+    @book = Book.find_by_id(params[:id])
+    @book.author = params[:author]
+    @book.save
+    redirect to "books/@{@book.id}"
+  end
   end
 
   # Delete Item Controller
   delete "/books/:id/delete" do
-    redirect "/books"
+    if logged_in?
+      @book = Book.find_by_id(params[:id])
+      if @book.user_id == current_user.id
+        @book.delete
+        redirect to '/books'
+      else 
+        redirect to '/books'
+      end
+    else
+      redirect to '/login'
+    end
   end
 end
