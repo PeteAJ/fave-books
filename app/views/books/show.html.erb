@@ -1,1 +1,11 @@
 <h1>This is the show page for an individual instance of your model.</h1>
+
+<p><%= @book.author %>
+<p><%= @book.title %>
+
+<form method="post" action="/books/<%=@book.id%>/delete">
+  <input id="hidden" type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete Book">
+</form>
+
+<a href="/tweets/<%=@tweet.id%>/edit">Edit a Book </a>
