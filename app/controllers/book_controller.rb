@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
 
+  #Index Controller
    get '/books' do
     if logged_in?
       @books = Book.all
@@ -9,18 +10,14 @@ class BooksController < ApplicationController
     end
   end
 
-  #Index Controller
-  get "/books" do
-        if logged_in?
-      erb :'books/new'
-    else
-      redirect to '/login'
-    end
-  end
 
   # New Item Controllers
   get "/books/new" do
+    if logged_in?
     erb :'/books/new'
+  else
+    redirect to '/login'
+  end
   end
 
   post "/books" do
@@ -42,6 +39,7 @@ class BooksController < ApplicationController
   else
     redirect to '/login'
   end
+end
 
   # Edit Item Controller
   get "/books/:id/edit" do
@@ -51,6 +49,7 @@ class BooksController < ApplicationController
     erb :'/books/edit'
   else
     redirect to '/books'
+  end
   else 
     redirect to '/login'
   end
