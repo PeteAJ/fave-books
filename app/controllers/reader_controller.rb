@@ -68,12 +68,12 @@ class ReadersController < ApplicationController
   end
 
   post '/login' do
-    reader = reader.find_by(:name => params[:name])
+    reader = Reader.find_by(:name => params[:name])
     if reader && reader.authenticate(params[:password])
       session[:reader_id] = reader.id
-      redirect "/tweets"
+      redirect :'books/index'
     else
-      redirect to '/create_reader'
+      redirect to :'books/index'
     end
   end
 
