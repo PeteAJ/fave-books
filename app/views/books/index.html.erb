@@ -1,1 +1,9 @@
-<h1>This is the Model's index page.</h1>
+<p> Welcome <%= current_user.name %>
+<h2> These are Your Books </h2>
+
+<% @books.each do |book| %>
+  <div>
+    <%= book.author %>
+    <%= book.title %>
+  </div>
+  <% end %>
