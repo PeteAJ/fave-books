@@ -1,5 +1,9 @@
 class ReadersController < ApplicationController
 
+   get '/readers/:slug' do
+    @reader = Reader.find_by_slug(params[:slug])
+    erb :'readers/show'
+  end
   #Index Controller
   get "/readers" do
     erb :"/readers/index.html"
