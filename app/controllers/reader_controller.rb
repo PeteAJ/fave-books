@@ -49,10 +49,10 @@ class ReadersController < ApplicationController
   end
 
   post '/signup' do 
-    if params[:name] == "" || params[:email] == "" || params[:password] == ""
+    if params[:name] == "" || params[:email] == "" || params[:password_digest] == ""
       redirect to '/signup'
     else
-      @reader = reader.new(:name => params[:name], :email => params[:email], :password => params[:password])
+      @reader = Reader.new(:name => params[:name], :email => params[:email], :password_digest => params[:password_digest])
       @reader.save
       session[:reader_id] = @reader.id
       redirect to :'/books/index'
