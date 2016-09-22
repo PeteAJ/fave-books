@@ -54,7 +54,7 @@ class ReadersController < ApplicationController
     else
       @reader = Reader.new(:name => params[:name], :email => params[:email], :password_digest => params[:password_digest])
       @reader.save
-      session[:reader_id] = @reader.id
+      session[:user_id] = @reader.id
       redirect to :'/books/index'
     end
   end
@@ -69,8 +69,8 @@ class ReadersController < ApplicationController
 
   post '/login' do
     reader = Reader.find_by(:name => params[:name])
-    if reader && reader.authenticate(params[:password])
-      session[:reader_id] = reader.id
+    if reader && reader.authenticate(params[:password_digest])
+      session[:user_id] = reader.id
       redirect :'books/index'
     else
       redirect to :'books/index'
