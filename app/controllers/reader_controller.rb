@@ -1,9 +1,6 @@
 class ReadersController < ApplicationController
 
-   get '/readers/:slug' do
-    @reader = Reader.find_by_slug(params[:slug])
-    erb :'readers/show'
-  end
+  
   #Index Controller
   get "/readers" do
     erb :"/readers/index.html"
@@ -40,7 +37,7 @@ class ReadersController < ApplicationController
 
 
     get '/readers/:slug' do
-    @reader = reader.find_by_slug(params[:slug])
+    @reader = Reader.find_by_slug(params[:slug])
     erb :'readers/show'
   end
 
@@ -48,7 +45,7 @@ class ReadersController < ApplicationController
     if !logged_in?
       erb :'readers/create_reader', locals: {message: "Please sign up before you sign in"}
     else
-      redirect to :'/books/index'
+      redirect to '/books'
     end
   end
 
@@ -59,7 +56,7 @@ class ReadersController < ApplicationController
       @reader = Reader.new(:name => params[:name], :email => params[:email], :password_digest => params[:password_digest])
       @reader.save
       session[:user_id] = @reader.id
-      redirect to :'/books/index'
+      redirect to '/books'
     end
   end
 
@@ -67,7 +64,7 @@ class ReadersController < ApplicationController
     if !logged_in?
       erb :'readers/login'
     else
-      redirect :'/books/index'
+      redirect '/books'
     end
   end
 
@@ -75,9 +72,9 @@ class ReadersController < ApplicationController
     reader = Reader.find_by(:name => params[:name])
     if reader && reader.authenticate(params[:password_digest])
       session[:user_id] = reader.id
-      redirect :'books/index'
+      redirect '/books'
     else
-      redirect to :'books/index'
+      redirect to '/signup'
     end
   end
 
@@ -89,7 +86,5 @@ class ReadersController < ApplicationController
       redirect to '/'
     end
   end
-
-
-
 end
+

@@ -1,2 +1,10 @@
 <h1>This is the show page for an individual instance of your model.</h1>
 <p> Here are your books, <%= @reader.name %>
+  <% @reader.books.each do |book| %>
+  <div>
+    <%= book.author %>
+    <%= book.title %>
+  </div>
+<% end %>
+
+
