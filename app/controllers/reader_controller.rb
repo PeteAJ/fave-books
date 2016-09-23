@@ -14,7 +14,7 @@ class ReadersController < ApplicationController
     if !logged_in?
       erb :'readers/create_reader', locals: {message: "Please sign up before you sign in"}
     else
-      redirect to '/books'
+      redirect to '/index'
     end
   end
 
@@ -25,7 +25,7 @@ class ReadersController < ApplicationController
       @reader = Reader.new(:name => params[:name], :email => params[:email], :password_digest => params[:password_digest])
       @reader.save
       session[:user_id] = @reader.id
-      redirect to '/books'
+      redirect to '/index'
     end
   end
 
