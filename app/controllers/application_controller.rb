@@ -14,6 +14,28 @@ class ApplicationController < Sinatra::Base
   end
 
 
+    get '/registrations/signup' do
+    erb :'/registrations/signup'
+  end
+
+  post '/registrations' do
+    
+    redirect 'readers/show'
+  end
+
+  get '/sessions/login' do
+    erb :'sessions/login'
+  end
+
+  post '/sessions' do
+    redirect 'readers/show'
+  end
+
+  get '/sessions/logout' do 
+    redirect '/'
+  end
+
+
   helpers do
     def logged_in?
       !!session[:user_id]

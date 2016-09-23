@@ -17,13 +17,13 @@
    <nav>
       <% if logged_in? %>
         
-        <a href="/tweets/new"> Create Book </a>
+        <a href="/books/new"> Create Book </a>
         <a href="/logout"> Log Out </a>
         <p>Welcome, <%=current_user.name %></p>
 
       <% else %>
-        <a href="/signup">Sign Up</a>
-        <a href="/login"> Sign In </a>
+        <a href="/registrations/signup">Sign Up</a>
+        <a href="/sessions/login"> Sign In </a>
       <%end %>
 
     </nav>
