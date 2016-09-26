@@ -18,7 +18,7 @@ class ApplicationController < Sinatra::Base
 
 
 
- get 'users/home' do
+ get '/users/home' do
     erb :'users/home'
   end
 
@@ -27,11 +27,11 @@ class ApplicationController < Sinatra::Base
 
  helpers do
     def logged_in?
-      !!session[:user_id]
+      !!current_reader
     end
 
     def current_reader
-      Reader.find(session[:user_id])
+      @current_reader ||= Reader.find_by_id(session[:user_id])
     end
 
   end

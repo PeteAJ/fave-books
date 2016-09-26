@@ -21,10 +21,11 @@ end
       @reader = Reader.new(:name => params[:name], :email => params[:email], :password => params[:password])
        @reader.save
        session[:user_id] = @reader.id
-    redirect 'users/home'
+    redirect '/users/home'
   end
   end
 
+ 
   get '/sessions/login' do
     if !logged_in?
     erb :'sessions/login'
