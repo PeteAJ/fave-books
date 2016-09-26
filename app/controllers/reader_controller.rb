@@ -43,6 +43,7 @@ end
   end
   end
 
+
   get '/sessions/logout' do 
      if session[:user_id] != nil
       session.destroy
