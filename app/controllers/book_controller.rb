@@ -63,7 +63,7 @@ end
     @book.author = params[:author]
     -@book.title = params[:title]
     @book.save
-    redirect to "books/#{@book.id}"
+    redirect to "/books/#{@book.id}"
   end
   end
 
