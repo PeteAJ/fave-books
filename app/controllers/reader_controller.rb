@@ -5,16 +5,36 @@ class ReadersController < ApplicationController
     erb :'readers/show'
   end
 
+
+
+
+get '/signup' do
+  erb :"readers/new"
+end
+
+
+
   post '/readers' do 
     @reader = Reader.new
     @reader.email = params[:email]
     @reader.password = params[:password]
     if @reader.save 
-      redirect '/index'
+      redirect '/login'
     else 
       erb :'/registrations/signup'
     end
   end
+
+
+
+
+
+
+
+
+
+
+
 
 
  get '/registrations/signup' do

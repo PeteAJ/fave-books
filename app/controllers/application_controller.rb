@@ -16,9 +16,9 @@ class ApplicationController < Sinatra::Base
     #erb :index
   end
 
-  get '/users/home' do
+  get '/readers/home' do
     if (@reader = current_reader) && @reader != nil 
-      erb :'users/home'
+      erb :'readers/home'
     else 
       redirect to '/'
     end
@@ -29,12 +29,12 @@ class ApplicationController < Sinatra::Base
       !!session[:email]
     end
 
-    def login(email)
-      user = User.find_by(:email => email)
-      if user && user.authenticate(password)
-      session[:email] = email
+    def login(email, password)
+      reader = Reader.find_by(:email => email)
+      if reader && user.authenticate(password)
+      session[:email] = reader.email
     else
-      redirect erb :index
+      redirect '/login'
     end
 end
 
