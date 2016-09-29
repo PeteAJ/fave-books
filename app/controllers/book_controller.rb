@@ -11,6 +11,10 @@ class BooksController < ApplicationController
   end
 
 
+get '/login' do
+erb :'/sessions/login'
+end
+
   # New Item Controllers
   get "/books/new" do
     if logged_in?

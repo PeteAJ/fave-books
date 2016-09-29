@@ -1,39 +1,53 @@
 require './config/environment'
 
 class ApplicationController < Sinatra::Base
-    register Sinatra::ActiveRecordExtension
+  register Sinatra::ActiveRecordExtension
   set :views, Proc.new { File.join(root, "../views/") }
 
   configure do
-    #set :public_folder, 'public'
-    #set :views, 'app/views'
+    set :public_folder, 'public'
+    set :views, 'app/views'
     enable :sessions
     set :session_secret, "read_secret"
   end
 
   get "/" do
-    erb :index
+    "Hello World"
+    #erb :index
   end
 
-
-
-
- get '/users/home' do
-    erb :'users/home'
-  end
-
-
-
-
- helpers do
-    def logged_in?
-      !!current_reader
+  get '/users/home' do
+    if (@reader = current_reader) && @reader != nil 
+      erb :'users/home'
+    else 
+      redirect to '/'
     end
+  end
+
+  helpers do
+    def logged_in?
+      #!!current_reader
+      !!session[:email]
+    end
+
+    def login(email)
+      user = User.find_by(:email => email)
+      if user && user.authenticate(password)
+      session[:email] = email
+    else
+      redirect '/'
+    end
+end
+
+def logout!
+  session.clear
+end
+
 
     def current_reader
-      @current_reader ||= Reader.find_by_id(session[:user_id])
+      # @current_reader ||= Reader.find_by_id(session[:user_id])
+      Reader.find_by_id(session[:user_id])
     end
-
   end
 
 end

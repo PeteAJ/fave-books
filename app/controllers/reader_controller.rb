@@ -5,6 +5,17 @@ class ReadersController < ApplicationController
     erb :'readers/show'
   end
 
+  post '/readers' do 
+    @reader = Reader.new
+    @reader.email = params[:email]
+    @reader.password = params[:password]
+    if @reader.save 
+      redirect '/index'
+    else 
+      erb :'/registrations/signup'
+    end
+  end
+
 
  get '/registrations/signup' do
       if !logged_in?
@@ -35,13 +46,13 @@ end
   end
 
   post '/sessions' do
-     reader = Reader.find_by(:name => params[:name])
+    reader = Reader.find_by(:name => params[:name])
     if reader && reader.authenticate(params[:password])
       session[:user_id] = reader.id
-    redirect to '/users/home'
-  else
-    redirect to '/sessions/login'
-  end
+      redirect to '/users/home'
+    else
+      redirect to '/sessions/login'
+    end
   end
 
 
