@@ -3,11 +3,11 @@ class BooksController < ApplicationController
 
 
 get '/books' do 
-  "You are logged in as #{session[:email]}"
+  "A list"
 end
 
 get '/books/new' do 
-  if !session[:email]
+  if !logged_in?
     redirect '/login'
   else
     "a new book form"
@@ -15,10 +15,11 @@ get '/books/new' do
 end
 
 get '/books/:id/edit' do
-if !session[:email]
+if !logged_in?
     redirect '/login'
   else
-    "an edit book form"
+    book = Reader.fin(params[:id])
+    "an edit book form #{current_user.id} is editing #{post.id}"
   end
 end
 
