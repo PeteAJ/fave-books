@@ -26,7 +26,6 @@ class ApplicationController < Sinatra::Base
 
   helpers do
     def logged_in?
-      #!!current_reader
       !!session[:email]
     end
 
@@ -35,7 +34,7 @@ class ApplicationController < Sinatra::Base
       if user && user.authenticate(password)
       session[:email] = email
     else
-      redirect '/'
+      redirect erb :index
     end
 end
 
