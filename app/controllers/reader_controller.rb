@@ -45,15 +45,15 @@ end
   end
   end
 
-  post '/sessions' do
-    reader = Reader.find_by(:name => params[:name])
-    if reader && reader.authenticate(params[:password])
-      session[:user_id] = reader.id
-      redirect to '/users/home'
-    else
-      redirect to '/sessions/login'
-    end
-  end
+  #post '/sessions' do
+   # reader = Reader.find_by(:name => params[:name])
+    #if reader && reader.authenticate(params[:password])
+     # session[:user_id] = reader.id
+      #redirect to '/users/home'
+    #else
+     # redirect to '/sessions/login'
+    #end
+  #end
 
 
   get '/sessions/logout' do 

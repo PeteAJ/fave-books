@@ -1,39 +1,73 @@
 class BooksController < ApplicationController
 
   #Index Controller
-   get '/books' do
-    if logged_in?
-      @books = Book.all
-      erb :'books/index'
-    else
-      redirect to '/login'
-    end
-  end
+   #get '/books' do
+    #if logged_in?
+     # @books = Book.all
+      #erb :'books/index'
+    #else
+     # redirect to '/login'
+    #end
+  #end
 
 
 get '/login' do
 erb :'/sessions/login'
 end
 
-  # New Item Controllers
-  get "/books/new" do
-    if logged_in?
-    erb :'/books/new'
+post '/sessions' do
+ session[:email] = params[:email]
+ redirect '/users/home'
+end 
+
+get '/logout' do 
+end
+
+
+
+
+
+get '/books' do 
+  "You are logged in as #{session[:email]}"
+end
+
+get '/books/new' do 
+  if !session[:email]
+    redirect '/login'
   else
-    redirect to '/login'
+    "a new book form"
   end
+end
+
+get '/books/:id/edit' do
+if !session[:email]
+    redirect '/login'
+  else
+    "an edit book form"
   end
+end
 
-  post "/books" do
 
-     if params[:author] == ""
-      redirect to "/books/new"
-    else
-      current_user.books.create(author: params[:author])
-      redirect to "/books/#{@book.id}"
-    end
+
+  # New Item Controllers
+  #get "/books/new" do
+   # if logged_in?
+    #erb :'/books/new'
+  #else
+   # redirect to '/login'
+  #end
+  #end
+
+ # post "/books" do
+
+  #   if params[:author] == ""
+   #   redirect to "/books/new"
+    #else
+     # current_user.books.create(author: params[:author])
+      #redirect to "/books/#{@book.id}"
+    #end
     #redirect "/books"
-  end
+  #end
 
   # Show Item Controller
   get "/books/:id" do
