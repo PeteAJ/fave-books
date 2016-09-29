@@ -7,11 +7,12 @@ erb :'/sessions/login'
 end
 
 post '/sessions' do
- session[:email] = params[:email]
+ login(params[:email])
  redirect '/users/home'
 end 
 
 get '/logout' do 
+  logout!
 end
 
 
