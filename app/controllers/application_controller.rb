@@ -12,8 +12,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    "Hello World"
-    #erb :index
+    erb :index
   end
 
   get '/readers/home' do
@@ -26,12 +25,17 @@ class ApplicationController < Sinatra::Base
 
   helpers do
     def logged_in?
-      !!session[:email]
+      !!current_reader
+    end
+
+     def current_reader
+      @current_reader ||= Reader.find_by_id(session[:user_id])
+      Reader.find_by_id(session[:user_id])
     end
 
     def login(email, password)
       reader = Reader.find_by(:email => email)
-      if reader && user.authenticate(password)
+      if reader && reader.authenticate(password)
       session[:email] = reader.email
     else
       redirect '/login'
@@ -43,10 +47,7 @@ def logout!
 end
 
 
-    def current_reader
-      # @current_reader ||= Reader.find_by_id(session[:user_id])
-      Reader.find_by_id(session[:user_id])
-    end
+   
   end
 
 end

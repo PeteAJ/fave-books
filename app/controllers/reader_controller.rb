@@ -1,10 +1,15 @@
 class ReadersController < ApplicationController
 
 
-get '/signup' do
-  erb :'/registrations/signup'
-end
 
+
+ get '/readers/home' do
+    if (@reader = current_reader) && @reader != nil 
+      erb :'readers/home'
+    else 
+      redirect to '/'
+    end
+  end
 
 
   post '/readers' do 
@@ -14,7 +19,7 @@ end
     if @reader.save 
       redirect '/login'
     else 
-      erb :'/registrations/signup'
+      redirect to '/registrations/signup'
     end
   end
 
