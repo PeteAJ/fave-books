@@ -1,6 +1,8 @@
 class BooksController < ApplicationController
 
-
+def index
+@books = Book.all
+end
 
 get '/books' do 
   "A list"

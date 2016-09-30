@@ -17,7 +17,7 @@ end
       @reader = Reader.new(:name => params[:name], :email => params[:email], :password => params[:password])
        @reader.save
        session[:user_id] = @reader.id
-       binding.pry
+       #binding.pry
     redirect '/books'
   end
   end
@@ -26,8 +26,14 @@ get '/sessions/login' do
 erb :'/sessions/login'
 end
 
+get '/login' do 
+  redirect '/books/index'
+end 
+
+
 post '/sessions' do
- login(params[:email])
+
+ login(params[:email],:password)
  redirect '/books/index'
 end 
 
@@ -37,7 +43,7 @@ get '/sessions/logout' do
 end
 
 get '/books/index' do 
-  erb :'/books/index.html'
+  redirect '/books/index'
 end
 
 end
