@@ -28,12 +28,12 @@ end
 
 post '/sessions' do
  login(params[:email])
- redirect '/users/home'
+ redirect '/books/index'
 end 
 
 get '/sessions/logout' do 
   logout!
-  redirect '/books/index'
+  redirect '/'
 end
 
 get '/books/index' do 
