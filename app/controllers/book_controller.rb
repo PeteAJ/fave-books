@@ -22,7 +22,7 @@ get '/books' do #loads index page
 end
 
 get '/books/:id' do  #loads show page
-  @book = Book.find_by_id(params[:id])
+  book = Book.find_by_id(params[:id])
   erb :'/books/show.html'
 end
 
