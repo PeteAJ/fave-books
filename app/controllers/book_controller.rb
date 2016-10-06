@@ -1,16 +1,5 @@
 class BooksController < ApplicationController
 
-
-get '/books/:id/edit' do
-if !logged_in?
-    redirect '/login'
-  else
-    book = current_user.books.find(params[:id])
-  "an edit book form #{current_user.id} is editing #{post.id}"
-end
-end
-
-
 get '/books/new' do #loads new form
   if !logged_in?
     redirect '/login'
@@ -39,6 +28,8 @@ end
 
 get '/books/:id/edit' do #loads edit form
   @book = Book.find_by_id(params[:id])
+  #book = current_user.books.find(params[:id])
+"an edit book form #{current_user.id} is editing #{post.id}"
   erb :'/books/edit.html'
 end
 

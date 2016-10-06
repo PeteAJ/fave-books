@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
 get '/registrations/signup' do
       if !logged_in?
     erb :'/registrations/signup'
-  else 
+  else
     redirect to '/index'
   end
 end
@@ -26,23 +26,23 @@ get '/sessions/login' do
 erb :'/sessions/login'
 end
 
-get '/login' do 
+get '/login' do
   redirect '/books/index'
-end 
+end
 
 
 post '/sessions' do
 
- login(params[:email],:password)
+ login(params[:email],[:password])
  redirect '/books/index'
-end 
+end
 
-get '/sessions/logout' do 
+get '/sessions/logout' do
   logout!
   redirect '/'
 end
 
-get '/books/index' do 
+get '/books/index' do
   redirect '/books/index'
 end
 
