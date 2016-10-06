@@ -5,7 +5,7 @@ get '/books/new' do #loads new form
     redirect '/login'
   else
     "a new book form"
-  redirect '/books/new'
+  redirect '/books/new.html'
   end
 
 end

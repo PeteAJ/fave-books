@@ -18,7 +18,7 @@ end
        @reader.save
        session[:user_id] = @reader.id
        #binding.pry
-    redirect '/books'
+    redirect '/books/index'
   end
   end
 
@@ -26,15 +26,15 @@ get '/sessions/login' do
 erb :'/sessions/login'
 end
 
-get '/login' do
-  redirect '/books/index'
-end
-
-
 post '/sessions' do
-
+  reader = Reader.find_by(:name => params[:name])
+		if reader && reader.authenticate(params[:password])
+			session[:user_id] = user.id
  login(params[:email],[:password])
  redirect '/books/index'
+ else
+   redirect '/'
+ end
 end
 
 get '/sessions/logout' do
