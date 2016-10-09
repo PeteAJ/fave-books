@@ -12,7 +12,7 @@ end
 
   post '/registrations' do
     if params[:name] == "" || params[:email] == "" || params[:password] == ""
-       redirect to '/failure'
+       redirect to '/index'
     else
       @reader = Reader.new(:name => params[:name], :email => params[:email], :password => params[:password])
       @reader.save
@@ -33,13 +33,10 @@ end
       login(params[:email],[:password])
       redirect '/books/index'
      else
-      redirect '/failure'
+      redirect '/index'
     end
   end
 
-get "/failure" do
-    erb :'/sessions/failure'
-  end
 
 get '/sessions/logout' do
   logout!
