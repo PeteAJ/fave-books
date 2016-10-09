@@ -1,4 +1,5 @@
 <h2> Edit Book </h2>
+<h3> <%= @current_reader.name %> is editing <%=@book.title %> </h3>
 
 <form method="post" action="/books/<%=@book.id%>">
   <input id="hidden" type="hidden" name="_method" value="PATCH">

@@ -1,67 +1,34 @@
 class ReadersController < ApplicationController
 
-get '/readers' do
+get '/readers/new' do #loads new form
+  if !logged_in?
+    redirect '/login'
+  else
+    "a new book form"
+  erb :'readers/new'
+  end
+
+end
+
+post '/readers' do  #creates a book
+  @reader = Reader.create(params)
+  redirect to '/readers'
+end
+
+get '/readers' do #loads index page
   @readers = Reader.all
-  erb :'readers/index'
-end
-
-  get 'readers/new' do
-    erb ':readers/new'
+  "a list"
+  if logged_in?
+    erb :'/books/index.html'
+  else
+    redirect to '/sessions/login' 
   end
-
-  post 'readers' do
-    @reader = Reader.create(params[:reader])
-    if !params["book"]["title"].empty?
-      @reader.books << Book.create(name: params["book"]["title"])
-    end
-    @reader.save
-    redirect "readers/#{@reader.id}"
 end
 
-#get '/readers/:id/edit' do #open edit view
-#  @reader = Reader.find(params[:id])
-#  erb :'/readers/edit'
-#end
-
-#get '/readers/:id' do #open show view
-#  @reader - Reader.find(params[:id])
-#  erb :'/readers/show'
-#end
-
-post '/readers/:id' do
-  @reader = Reader.find(params[:id])
-  @reader.update(params["reader"])
-  if !params["book"]["title"].empty?
-    @reader.pets << Reader.create(name: params["book"]["title"])
-  end
-  redirect "readers/#{@reader.id}"
+get '/readers/:id' do  #loads show page
+  @reader = Reader.find_by_id(params[:id])
+  erb :'/readers/show.html'
 end
-
-
-
-    #if (@reader = current_reader) && @reader != nil
-
-
-
-  #post '/readers' do
-  #  @reader = Reader.new
-  #  @reader.email = params[:email]
-  #  @reader.password = params[:password]
-  #  if @reader.save
-  #    redirect '/login'
-  #  else
-  #    redirect to '/registrations/signup'
-  #  end
-#  end
-
-
-
-
-
-
-
-
-
 
 
 

@@ -5,7 +5,7 @@ get '/books/new' do #loads new form
     redirect '/login'
   else
     "a new book form"
-  redirect '/books/new.html'
+  erb :'books/new'
   end
 
 end
@@ -18,20 +18,28 @@ end
 get '/books' do #loads index page
   @books = Book.all
   "a list"
-  erb :'/books/index.html'
+  if logged_in?
+    erb :'/books/index.html'
+  else
+    redirect to '/sessions/login' 
+  end
 end
 
 get '/books/:id' do  #loads show page
-  book = Book.find_by_id(params[:id])
+  @book = Book.find_by_id(params[:id])
   erb :'/books/show.html'
 end
 
 get '/books/:id/edit' do #loads edit form
   @book = Book.find_by_id(params[:id])
   #book = current_user.books.find(params[:id])
-"an edit book form #{current_user.id} is editing #{post.id}"
+  @current_reader = Reader.find(params[:id])
   erb :'/books/edit.html'
 end
+
+  patch '/books/:id' do
+   redirect to '/books'
+  end
 
 post '/books/:id' do  #updates a book
   @book = Book.find_by_id(params[:id])
