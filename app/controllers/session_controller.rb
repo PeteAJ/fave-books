@@ -33,7 +33,7 @@ end
       login(params[:email],[:password])
       redirect '/books/index'
      else
-      redirect '/index'
+      redirect '/registrations/signup'
     end
   end
 
